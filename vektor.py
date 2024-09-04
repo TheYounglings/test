@@ -19,14 +19,22 @@ class Vector():
     def y(self):
         return(self.__y)
     
+    @x.setter
+    def x(self,x):
+        self.__x = x
+    
+    @y.setter
+    def y(self,y):
+        self.__y = y
+    
     def __str__(self):
         return("{self.__x} og {self.__y}")
     
     def __add__(self,Victor):
-        return(Vector(self.__x + Victor.__x, self.__y + Victor.__y))
+        return(Vector(self.__x + Victor.x, self.__y + Victor.y))
     
     def __sub__(self,Victor):
-        return(Vector(self.__x - Victor.__x, self.__y - Victor.__y))
+        return(Vector(self.__x - Victor.x, self.__y - Victor.y))
     
     def __mul__(self,multiplicator):
         return(Vector(self.__x * multiplicator, self.__y * multiplicator))
@@ -35,7 +43,7 @@ class Vector():
         return(sqrt(self.__x**2 + self.__y**2))
     
     def scallar(self,Victor):
-        return(self.__x * Victor.__x + self.__y * Victor.__y)
+        return(self.__x * Victor.x + self.__y * Victor.y)
          
     
  
