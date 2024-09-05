@@ -22,9 +22,10 @@ class Fisk():
     
     def update(self):
         self.__pos = self.__pos + self.__vel
-        #self.borderControl()
-        self.__vel.x = self.__vec.x
-        self.__vel.y = self.__vel.y
+        self.__vel = self.borderControl()
+        #self.__vel.x = self.__vec.x
+        #
+        # self.__vel.y = self.__vel.y
 
     def draw(self,screen):
         screen.blit(self.__img,(self.__pos.x,self.__pos.y))  

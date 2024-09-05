@@ -10,7 +10,7 @@ class Stimme():
        n = 0
        while n< self.__antal :
         position = Vector(n*10,n*10)
-        velocity = Vector(n*2+1,n*2+1)
+        velocity = Vector(2+n,2+n)
         i = n
         i = Fisk(position,velocity,'fish.png') 
         position = Vector(n*10,n*10)

@@ -7,10 +7,7 @@ class Vector():
     def get(self):
         return(self.__x,self.__y)
     
-    def set(self,x,y):
-        self.__x = x
-        self.__y = y
-    
+
     @property
     def x(self):
         return(self.__x)
@@ -53,7 +50,8 @@ class Vector():
 #print(Vector1.get())
 #print(Vector2.get())
 
-#Vector3 = Vector1 + Vector2
+#Vector3 = 
+# Vector1 + Vector2
 #print(Vector3.get())
 
 #Vector4 = Vector1 - Vector2
