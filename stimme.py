@@ -1,24 +1,30 @@
 from fisk import *
 from vektor import *
+import random
+import pygame
 
 class Stimme():
-    def __init__(self,antal):
+    def __init__(self,antal,screen, img):
         self.__stimme = []
         self.__antal = antal
+        self.screen = screen
+
+        self.__img = pygame.image.load(img)
+        self.__img = pygame.transform.scale(self.__img, (50,50))
     
     def update(self):
        n = 0
        while n< self.__antal :
-        position = Vector(n*10,n*10)
-        velocity = Vector(2+n,2+n)
+        velocity = Vector(random.uniform(1,4),random.uniform(1,4))
         i = n
-        i = Fisk(position,velocity,'fish.png') 
-        position = Vector(n*10,n*10)
-        velocity = Vector(n*2+1,n*2+1)
+        position = Vector(random.uniform(250,500),random.uniform(250,500))
+        i = Fisk(position,velocity,self.__img,self.screen,random.uniform(25,250)) 
         self.__stimme.append(i)
         n+=1
     
-    def draw(self,screen):
+    def draw(self):
         for x in self.__stimme:
             x.update()
-            x.draw(screen)
+            x.draw()
+            if x == 1:
+               print(x.x)

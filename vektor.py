@@ -41,9 +41,6 @@ class Vector():
     
     def scallar(self,Victor):
         return(self.__x * Victor.x + self.__y * Victor.y)
-         
-    
- 
 #Vector1 = Vector(2,2)
 #Vector2 = Vector(4,2)
 

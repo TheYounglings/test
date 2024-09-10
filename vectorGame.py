@@ -9,11 +9,12 @@ from stimme import *
 
 def main():
     pygame.init()
+    
 
 
     clock = pygame.time.Clock()
     screen = pygame.display.set_mode((800, 600))
-    fishes = Stimme(40)
+    fishes = Stimme(2000,screen,'fish.png')
     fishes.update()
 
 
@@ -25,7 +26,7 @@ def main():
                 running = False  
         screen.fill((0, 128, 255))
         
-        fishes.draw(screen)
+        fishes.draw()
 
             
 
