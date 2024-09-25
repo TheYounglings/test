@@ -25,7 +25,7 @@ class Vector():
         self.__y = y
     
     def __str__(self):
-        return("{self.__x} og {self.__y}")
+        return(f"{self.__x} og {self.__y}")
     
     def __add__(self,Victor):
         return(Vector(self.__x + Victor.x, self.__y + Victor.y))
@@ -36,11 +36,24 @@ class Vector():
     def __mul__(self,multiplicator):
         return(Vector(self.__x * multiplicator, self.__y * multiplicator))
     
+    def __truediv__(self,div):
+        return(Vector(self.__x/div,self.__y/div))
+    
+    def normalise(self):
+        return(Vector(self.__x/self.getLength(),self.__y/self.getLength()))
+    
     def getLength(self):
         return(sqrt(self.__x**2 + self.__y**2))
     
+    def distance(self,Victor):
+        return(sqrt((self.__x-Victor.x)**2+(self.__y-Victor.y)**2))
+    
     def scallar(self,Victor):
         return(self.__x * Victor.x + self.__y * Victor.y)
+    
+    def mul(self,Victor):
+        return(Vector(self.__x * Victor.x + self.__y * Victor.y))
+
 #Vector1 = Vector(2,2)
 #Vector2 = Vector(4,2)
 

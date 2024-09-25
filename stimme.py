@@ -8,14 +8,13 @@ class Stimme():
         self.__stimme = []
         self.__antal = antal
         self.screen = screen
-
         self.__img = pygame.image.load(img)
         self.__img = pygame.transform.scale(self.__img, (50,50))
     
     def update(self):
        n = 0
        while n< self.__antal :
-        velocity = Vector(random.uniform(1,4),random.uniform(1,4))
+        velocity = Vector(random.uniform(1,4),random.uniform(-1,-4))
         i = n
         position = Vector(random.uniform(250,500),random.uniform(250,500))
         i = Fisk(position,velocity,self.__img,self.screen,random.uniform(25,250)) 
@@ -24,7 +23,7 @@ class Stimme():
     
     def draw(self):
         for x in self.__stimme:
-            x.update()
+            x.update(self.__stimme)
             x.draw()
             if x == 1:
                print(x.x)
