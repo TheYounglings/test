@@ -11,8 +11,8 @@ class Fisk():
         self.__vec = vel
         self.__startVelxR = abs(self.__vel.x)
         self.__startVelyR = abs(self.__vel.y)
-        self.__startVelx= abs(self.__vel.x*0.2)
-        self.__startVely= abs(self.__vel.y*0.2)
+        self.__startVelx= abs(self.__vel.x*0.4)
+        self.__startVely= abs(self.__vel.y*0.4)
         self.screen = screen
         self.w, self.h = pygame.display.get_surface().get_size()
         self.__d = d
@@ -20,13 +20,23 @@ class Fisk():
     @property
     def pos(self):
         return(self.__pos)
+    
+    @property
+    def vel(self):
+        return(self.__vel)
 
     def borderControl(self):
-        if self.__pos.x > 800-50 or self.__pos.x<0:
-            self.__vec.x = self.__vec.x * -1
+        if self.__pos.x<0:
+            self.__vec.x = abs(self.__vec.x)
         
-        if self.__pos.y>600-50 or self.__pos.y<0:
-            self.__vec.y = self.__vec.y * -1
+        if self.__pos.x > 800-50:
+            self.__vec.x = -abs(self.__vec.x)
+        
+        if self.__pos.y<0:
+            self.__vec.y = abs(self.__vec.y)
+        
+        if self.__pos.y > 600-50:
+            self.__vec.y = -abs(self.__vec.y)
 
         return(self.__vec)
     
@@ -68,7 +78,7 @@ class Fisk():
         if self.__pos.y > self.h:
             self.__pos.y = -50
     
-    def seperation(self,flockFishes,tooClose=150, seperationFactor=10):
+    def seperation(self,flockFishes,tooClose=40, seperationFactor=8):
         seperationVector = Vector(0,0)
         for fish in flockFishes:
             if fish != self:
@@ -76,6 +86,24 @@ class Fisk():
                 if distance < tooClose:
                     seperationVector += (self.__pos - fish.pos).normalise()/distance
         return(seperationVector*seperationFactor)
+    
+    def alignment(self, flockFishes, visibleDistance=90, alignment_factor=0.5):
+        alignmentVector = Vector(0, 0)
+        count = 0
+        for fish in flockFishes:
+            if fish != self:
+                distance = self.__pos.distance(fish.pos)
+                if distance < visibleDistance:
+                    alignmentVector += fish.vel
+                    count += 1
+        if count > 0:
+            alignmentVector /= count
+            # alignmentVector = (alignmentVector - self.__vel)
+            alignmentVector = alignmentVector.normalise()
+            return (alignmentVector * alignment_factor)
+        else:
+            return(alignmentVector)
+
 
 
 
@@ -87,6 +115,8 @@ class Fisk():
         self.__vel = self.borderControl2()
 
         self.__vel += self.seperation(flockFishes)
+
+        self.__vel += self.alignment(flockFishes)
         # self.__vel.x = self.__vec.x
         
         # self.__vel.y = self.__vel.y

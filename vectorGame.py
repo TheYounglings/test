@@ -14,7 +14,7 @@ def main():
 
     clock = pygame.time.Clock()
     screen = pygame.display.set_mode((800, 600))
-    fishes = Stimme(30,screen,'fish.png')
+    fishes = Stimme(15,screen,'fish.png')
     fishes.update()
 
 
