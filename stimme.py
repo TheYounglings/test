@@ -21,9 +21,9 @@ class Stimme():
         self.__stimme.append(i)
         n+=1
     
-    def draw(self):
+    def draw(self,seperationFactor,allignmentFactor,cohessionFactor):
         for x in self.__stimme:
-            x.update(self.__stimme)
+            x.update(self.__stimme,seperationFactor,allignmentFactor,cohessionFactor)
             x.draw()
             if x == 1:
                print(x.x)

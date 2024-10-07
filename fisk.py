@@ -78,7 +78,7 @@ class Fisk():
         if self.__pos.y > self.h:
             self.__pos.y = -50
     
-    def seperation(self,flockFishes,tooClose=40, seperationFactor=8):
+    def seperation(self,flockFishes,tooClose, seperationFactor):
         seperationVector = Vector(0,0)
         for fish in flockFishes:
             if fish != self:
@@ -87,7 +87,7 @@ class Fisk():
                     seperationVector += (self.__pos - fish.pos).normalise()/distance
         return(seperationVector*seperationFactor)
     
-    def alignment(self, flockFishes, visibleDistance=90, alignment_factor=0.5):
+    def alignment(self, flockFishes, visibleDistance, alignment_factor):
         alignmentVector = Vector(0, 0)
         count = 0
         for fish in flockFishes:
@@ -105,18 +105,34 @@ class Fisk():
             return(alignmentVector)
 
 
+    def cohession(self,flockFishes,cohessionFactor):
+        cohessionVector = Vector(0,0)
+        count = 0
+        for fish in flockFishes:
+            if fish != self:
+                cohessionVector += fish.pos
+                count += 1
+        
+        if count > 0:
+            cohessionVector = cohessionVector / count
+            return((cohessionVector-self.__pos) * cohessionFactor)
 
 
-    def update(self,flockFishes):
+
+
+    def update(self,flockFishes,seperationFactor,allignmentFactor,cohessionFactor):
         self.__pos = self.__pos + self.__vel
 
         #self.borderControl3()
 
         self.__vel = self.borderControl2()
 
-        self.__vel += self.seperation(flockFishes)
 
-        self.__vel += self.alignment(flockFishes)
+        self.__vel += self.seperation(flockFishes,40, seperationFactor)
+
+        self.__vel += self.alignment(flockFishes,90,allignmentFactor)
+
+        self.__vel += self.cohession(flockFishes,cohessionFactor)
         # self.__vel.x = self.__vec.x
         
         # self.__vel.y = self.__vel.y
